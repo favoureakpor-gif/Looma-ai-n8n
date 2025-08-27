@@ -3,22 +3,16 @@ services:
     name: looma-ai-n8n
     env: docker
     plan: free
-    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    dockerCommand: docker run -p 5678:5678 n8nio/n8n:latest
     envVars:
+      - key: N8N_HOST
+        value: 0.0.0.0
+      - key: N8N_PORT
+        value: 5678
       - key: N8N_BASIC_AUTH_ACTIVE
         value: true
       - key: N8N_BASIC_AUTH_USER
         value: admin
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true
-      - key: N8N_ENCRYPTION_KEY
-        generateValue: true
-      - key: WEBHOOK_URL
-        value: https://looma-ai-n8n.onrender.com
-      - key: N8N_HOST
-        value: 0.0.0.0
-      - key: N8N_PORT
-        value: 5678
-      - key: N8N_PROTOCOL
-        value: https
-    healthCheckPath: /healthz
